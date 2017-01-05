@@ -1,0 +1,2 @@
+# What status' are allowed when selecting related content?
+# allowed_statuses: [ publish, held, draft, timed ]

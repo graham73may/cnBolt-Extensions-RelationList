@@ -74,7 +74,9 @@ class RelationListController implements ControllerProviderInterface
 
         foreach ($allowedTypes as $ct_type) {
             // Customise the status criteria for each contenttype
-            $filters[$ct_type] = ['status' => 'draft || published || held'];
+            if (!empty($this->config['allowed_statuses'])) {
+                $filters[$ct_type]['status'] = implode(' || ', $this->config['allowed_statuses']);
+            }
         }
 
         $content = $this->app['storage']->searchContent($search, $allowedTypes, $filters, 100, 0);
