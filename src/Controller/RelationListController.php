@@ -68,7 +68,16 @@ class RelationListController implements ControllerProviderInterface
 
         $allowedTypes = isset($config["allowed-types"]) ? $config["allowed-types"] : array();
         $results = array();
-        $content = $this->app['storage']->searchContent($search, $allowedTypes, null, 100, 0);
+
+        // Create an array of filters to pass to searchContent
+        $filters = [];
+
+        foreach ($allowedTypes as $ct_type) {
+            // Customise the status criteria for each contenttype
+            $filters[$ct_type] = ['status' => 'draft || published || held'];
+        }
+
+        $content = $this->app['storage']->searchContent($search, $allowedTypes, $filters, 100, 0);
 
         if($content["results"]) {
             foreach ($content["results"] as $entry) {
