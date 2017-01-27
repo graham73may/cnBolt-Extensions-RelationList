@@ -327,7 +327,7 @@ var RelationListComponent = function( config )
 				"contenttype": self.config.contenttype,
 				"field": self.config.fieldName,
                 "subfield": self.config.subFieldName,
-				"search": keyword
+                "search": keyword.replace('/', ' ')
 			});
 
 		var inputClass = self.config.searchFieldNode.attr('class');
